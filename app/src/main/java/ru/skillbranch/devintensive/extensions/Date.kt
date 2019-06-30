@@ -27,8 +27,18 @@ fun Date.add(value: Int, units: TimeUnits = TimeUnits.SECOND): Date {
 }
 
 fun Date.humanizeDiff(date: Date = Date()): String {
-    TODO()
+    return ""
 }
+
+//fun Date.humanizeDiff(): String {
+//
+//    var delta = Date().time - this.time
+//    delta = delta/1000 * 1000
+//    var past = true
+//    if (delta < 0) {
+//        past = false
+//        delta = -delta
+//    }
 
 enum class TimeUnits{
     SECOND,
