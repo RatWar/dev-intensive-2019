@@ -1,13 +1,14 @@
 package ru.skillbranch.devintensive.extensions
 
-fun String.truncate(size: Int = 16): String {
+fun String.truncate(len: Int = 16): String {
     val result = this.trim()
-    if (result.length <= size)
-        return result
-    return result.substring(0, size).trimEnd() + "..."
+    return when {
+        result.length <= len -> result
+        else -> "${result.take(len).trimEnd()}..."
+    }
 }
 
-fun String.stripHtml() = this
-    .replace(Regex("<[^>]*>"), "")
-    .replace(Regex("&amp;|&lt;|&gt;|&quot;|&apos;|&#\\d+;"), "")
-    .replace(Regex(" +"), " ")
+fun String.stripHtml(): String = this
+    .replace(Regex("""<.*?>"""), "") // Remove HTML tags
+    .replace(Regex("""&(#\d+?|\w+?);"""), "") // Remove HTML escape sequences
+    .replace(Regex(""" +"""), " ") // Remove extra spaces

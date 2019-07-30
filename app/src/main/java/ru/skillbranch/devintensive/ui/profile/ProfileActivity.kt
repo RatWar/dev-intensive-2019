@@ -7,8 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.util.TypedValue
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toDrawable
@@ -39,7 +38,6 @@ class ProfileActivity : AppCompatActivity() {
 
         Log.d("M_ProfileActivity", "onCreate")
     }
-
 
     override fun onSaveInstanceState(outState: Bundle?) {
         outState?.putBoolean(IS_EDIT_MODE, isEditMode)
@@ -100,7 +98,7 @@ class ProfileActivity : AppCompatActivity() {
             v.background.alpha = if (isEdit) 255 else 0
         }
 
-        ic_eye.visibility = if (isEdit) GONE else VISIBLE
+        ic_eye.visibility = if (isEdit) View.GONE else View.VISIBLE
         wr_about.isCounterEnabled = isEdit
 
         with(btn_edit) {
@@ -219,4 +217,6 @@ class ProfileActivity : AppCompatActivity() {
         )
         return bitmap.toDrawable(resources)
     }
+
+
 }
