@@ -14,6 +14,13 @@ fun Date.format(pattern: String = "HH:mm:ss dd.MM.yy"): String {
     return dateFormat.format(this)
 }
 
+fun Date.shortFormat(): String {
+    val pattern = if (this.isSameDay(Date())) "HH:mm" else "dd.MM.yy"
+    return SimpleDateFormat(pattern, Locale("ru")).format(this)
+}
+
+private fun Date.isSameDay(otherDate: Date): Boolean = (this.time / DAY) == (otherDate.time / DAY)
+
 fun Date.add(value: Int, units: TimeUnits = TimeUnits.SECOND): Date {
     this.time += when (units) {
         TimeUnits.SECOND -> value * SECOND
@@ -44,7 +51,6 @@ fun Date.humanizeDiff(date: Date = Date()): String {
         else -> if (isPast) "более года назад" else "более чем через год"
     }
 }
-
 
 enum class TimeUnits {
     SECOND, MINUTE, HOUR, DAY;
