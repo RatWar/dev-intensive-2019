@@ -28,6 +28,7 @@ class CircleImageView @JvmOverloads constructor(
 
     private var mBitmapShader: BitmapShader? = null
     private var mBitmap: Bitmap? = null
+    private var mInitialized: Boolean
     private var mBorderBounds: RectF
     private var mBitmapDrawBounds: RectF
     private var mBorderPaint: Paint
@@ -40,8 +41,10 @@ class CircleImageView @JvmOverloads constructor(
         if (attrs != null) {
             val a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView, 0, 0)
 
-            mBorderColor = a.getColor(R.styleable.CircleImageView_cv_borderColor, DEFAULT_BORDER_COLOR)
-            mBorderWidth = a.getDimension(R.styleable.CircleImageView_cv_borderWidth, DEFAULT_BORDER_WIDTH)
+            mBorderColor = a.getColor(R.styleable.CircleImageView_ci_borderColor,
+                DEFAULT_BORDER_COLOR)
+            mBorderWidth = a.getDimension(R.styleable.CircleImageView_ci_borderWidth,
+                DEFAULT_BORDER_WIDTH)
 
             a.recycle()
         }
@@ -51,6 +54,8 @@ class CircleImageView @JvmOverloads constructor(
         mBitmapDrawBounds = RectF()
         mBitmapPaint = Paint(Paint.ANTI_ALIAS_FLAG)
         mBorderPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+        mInitialized = true
 
         setupBitmap()
     }
@@ -141,6 +146,9 @@ class CircleImageView @JvmOverloads constructor(
     private fun setupBitmap() {
         super.setScaleType(SCALE_TYPE)
 
+        if (!mInitialized) {
+            return
+        }
         mBitmap = getBitmapFromDrawable(drawable)
         if (mBitmap == null) {
             return
